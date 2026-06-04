@@ -6,7 +6,7 @@ const AdminPanel = () => {
 
     const fetchUsers = async () => {
         try {
-            const res = await fetch("http://localhost/Profsense/api/get_faculty.php");
+            const res = await fetch(`${import.meta.env.VITE_API_URL}/get_faculty.php`);
             const data = await res.json();
             if (data.success) {
                 setUsers(data.faculty);
@@ -25,7 +25,7 @@ const AdminPanel = () => {
     const handleDelete = async (userId) => {
         if (!window.confirm("Are you sure you want to delete this user?")) return;
         try {
-            const res = await fetch("http://localhost/Profsense/api/delete_user.php", {
+            const res = await fetch(`${import.meta.env.VITE_API_URL}/delete_user.php`, {
                 method: "POST",
                 headers: { "Content-Type": "application/json" },
                 body: JSON.stringify({ userId }),

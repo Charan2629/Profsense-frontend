@@ -12,7 +12,7 @@ const Profile = () => {
     // Fetch profile from backend once when component mounts
     useEffect(() => {
         if (user && user.id) {
-            fetch(`http://localhost/Profsense/api/profile.php?userId=${user.id}`)
+            fetch(`${import.meta.env.VITE_API_URL}/profile.php?userId=${user.id}`)
                 .then((res) => res.json())
                 .then((data) => {
                     if (data.success) {
@@ -49,7 +49,7 @@ const Profile = () => {
         }
 
         try {
-            const res = await fetch("http://localhost/Profsense/api/profile.php", {
+            const res = await fetch(`${import.meta.env.VITE_API_URL}/profile.php`, {
                 method: "POST",
                 headers: { "Content-Type": "application/json" },
                 body: JSON.stringify(payload),
@@ -60,7 +60,7 @@ const Profile = () => {
                 setEditing(false);
                 setNewPassword("");
                 // Re-fetch the updated profile to update the UI
-                fetch(`http://localhost/Profsense/api/profile.php?userId=${user.id}`)
+                fetch(`${import.meta.env.VITE_API_URL}/profile.php?userId=${user.id}`)
                     .then((res) => res.json())
                     .then((data) => {
                         if (data.success) {

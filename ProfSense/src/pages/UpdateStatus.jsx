@@ -14,7 +14,7 @@ const UpdateStatus = () => {
     // If the logged-in user is admin, fetch the list of faculty
     useEffect(() => {
         if (user && user.emp_id.toLowerCase() === "admin") {
-            fetch("http://localhost/Profsense/api/get_faculty.php")
+            fetch(`${import.meta.env.VITE_API_URL}/get_faculty.php`)
                 .then((res) => res.json())
                 .then((data) => {
                     if (data.success) {
@@ -75,7 +75,7 @@ const UpdateStatus = () => {
             availableTo: availableTo      // optional
         };
         try {
-            const res = await fetch("http://localhost/Profsense/api/update_status.php", {
+            const res = await fetch(`${import.meta.env.VITE_API_URL}/update_status.php`, {
                 method: "POST",
                 headers: { "Content-Type": "application/json" },
                 body: JSON.stringify(payload)
@@ -100,7 +100,7 @@ const UpdateStatus = () => {
         }
         setResetLoading(true);
         try {
-            const res = await fetch("http://localhost/Profsense/api/reset_status.php", {
+            const res = await fetch(`${import.meta.env.VITE_API_URL}/reset_status.php`, {
                 method: "POST",
                 headers: { "Content-Type": "application/json" }
             });

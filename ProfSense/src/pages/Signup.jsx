@@ -16,7 +16,7 @@ const Signup = () => {
             return;
         }
         try {
-            const res = await fetch("http://localhost/Profsense/api/register.php", {
+            const res = await fetch(`${import.meta.env.VITE_API_URL}/register.php`, {
                 method: "POST",
                 headers: { "Content-Type": "application/json" },
                 body: JSON.stringify({
