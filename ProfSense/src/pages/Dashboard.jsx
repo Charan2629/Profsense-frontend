@@ -6,8 +6,17 @@ const Dashboard = () => {
     useEffect(() => {
         const fetchFaculty = async () => {
             try {
-                const res = await fetch(`${import.meta.env.VITE_API_URL}/get_faculty.php`);
+                // 1. Detect if the user entered via the /demo route
+                const user = JSON.parse(localStorage.getItem("user") || "{}");
+                const isDemo = localStorage.getItem("isDemo") === "true" || user?.isDemo;
+
+                // 2. Select demo endpoint if demo session, otherwise fetch live DB data
+                const fileName = isDemo ? "get_demo_faculty.php" : "get_faculty.php";
+                const endpoint = `${import.meta.env.VITE_API_URL}/${fileName}`;
+
+                const res = await fetch(endpoint);
                 const data = await res.json();
+
                 if (data.success) {
                     setFaculty(data.faculty);
                 } else {
@@ -68,9 +77,9 @@ const Dashboard = () => {
                                             <p className="text-sm text-gray-500">{user.designation || ""}</p>
                                         </div>
                                         <div className="flex flex-col items-end">
-                      <span className={`px-3 py-1 rounded-full text-white font-semibold ${statusBg}`}>
-                        {statusText}
-                      </span>
+                                            <span className={`px-3 py-1 rounded-full text-white font-semibold ${statusBg}`}>
+                                                {statusText}
+                                            </span>
                                         </div>
                                     </div>
                                     <div className="mt-4">

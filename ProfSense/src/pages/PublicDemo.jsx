@@ -2,12 +2,6 @@ import { useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 
 // ─── Demo session payload ─────────────────────────────────────────────────────
-// Shaped to match exactly what the app reads from storage:
-//   - PrivateRoute  → needs any truthy object
-//   - Navbar        → reads user.name, user.emp_id  (must not be undefined)
-//   - UpdateStatus  → reads user.id, user.emp_id
-//   - Profile       → reads user.id
-//   - No JWT / token is checked anywhere in the frontend
 const DEMO_USER = {
     id: "1",   // used as userId in update_status.php POST
     emp_id: "DEMO001",      // must not be "admin" — keeps admin-only UI hidden
@@ -15,20 +9,23 @@ const DEMO_USER = {
     email: "demo@profsense.dev",
     department: "Computer Science",
     designation: "Associate Professor",
+    isDemo: true,           // Flag identifying this as a public demo session
 };
 
 const PublicDemo = () => {
     const navigate = useNavigate();
 
     useEffect(() => {
-        // Inject demo session into localStorage so PrivateRoute passes
+        // 1. Inject demo user object for authentication guards (PrivateRoute)
         localStorage.setItem("user", JSON.stringify(DEMO_USER));
+
+        // 2. Set explicit isDemo flag so Dashboard switches to get_demo_faculty.php
+        localStorage.setItem("isDemo", "true");
 
         // Redirect straight into the live dashboard
         navigate("/dashboard", { replace: true });
     }, [navigate]);
 
-    // Shown for the brief moment before the redirect fires
     return (
         <div
             style={{
@@ -43,7 +40,6 @@ const PublicDemo = () => {
                 gap: "16px",
             }}
         >
-            {/* Spinner */}
             <div
                 style={{
                     width: "40px",
