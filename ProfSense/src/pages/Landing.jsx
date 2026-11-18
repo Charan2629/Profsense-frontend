@@ -66,6 +66,14 @@ const Landing = () => {
                 Click here to Login
             </button>
 
+            {/* View Live Demo Button */}
+            <button
+                onClick={() => navigate("/demo")}
+                className="mt-3 px-8 py-3 bg-white text-[#06293D] font-semibold rounded-full shadow hover:bg-gray-100 transition-colors duration-300"
+            >
+                🔍 View Live Demo
+            </button>
+
             {/* Footer */}
             <div className="absolute bottom-4 w-full text-center">
                 <p className="text-sm text-white">

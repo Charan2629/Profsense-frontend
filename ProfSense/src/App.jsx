@@ -9,6 +9,7 @@ import Dashboard from "./pages/Dashboard";
 import UpdateStatus from "./pages/UpdateStatus";
 import AdminPanel from "./pages/AdminPanel";
 import Profile from "./pages/Profile";
+import PublicDemo from "./pages/PublicDemo";
 import { getStoredUser } from "./helpers/storage";
 
 const AppRoutes = () => {
@@ -30,6 +31,7 @@ const AppRoutes = () => {
     return (
         <Routes>
             <Route path="/" element={<Landing />} />
+            <Route path="/demo" element={<PublicDemo />} />
             <Route path="/login" element={<Login />} />
             <Route path="/signup" element={<PrivateRoute><Signup /></PrivateRoute>} />
             <Route path="/dashboard" element={<PrivateRoute><Dashboard /></PrivateRoute>} />
